@@ -1,4 +1,5 @@
 package brute_force;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class boj_18310 {
@@ -10,23 +11,14 @@ public class boj_18310 {
         int N = scanner.nextInt();
 
         int[] house = new int[N];
+
+        //input
         for(int i = 0; i < N; i ++)
             house[i] = scanner.nextInt();
 
-        int min = Integer.MAX_VALUE;
-        int min_i = N;
-        //모든 경우의 수 체크
-        for(int i = 0; i < N; i ++)
-        {
-            int position = house[i];
-            int sum = 0;
-            for(int j = 0; j < N; j ++)
-                sum += Math.abs(position - house[j]);
-            if(sum < min && min_i < house[i]){
-                min = sum;
-                min_i = house[i];
-            }
-        }
-        System.out.println(min_i);
+        //정렬, 중앙값으로 최소거리 도출
+        // nlogn
+        Arrays.sort(house);
+        System.out.println(house[(N - 1) / 2]);
     }
 }
