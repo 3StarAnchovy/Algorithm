@@ -17,7 +17,7 @@ public class boj_7696 {
     public static void main(String[] args)
     {
         Scanner scanner = new Scanner(System.in);
-
+        //tt
         int n = 1;
         while(n != 0)
         {
