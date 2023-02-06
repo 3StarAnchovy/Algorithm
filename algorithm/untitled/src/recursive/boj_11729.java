@@ -20,6 +20,7 @@ public class boj_11729 {
         //recursive(n) = recursive(n - 1) + 1;
         Scanner scanner = new Scanner(System.in);
         int n = scanner.nextInt();
+        System.out.println((int) Math.pow(2,n) - 1);
         recursive(n,1,3,2);
     }
 }
