@@ -67,10 +67,10 @@ public class boj_1012 {
     }
 
     private static void dfs(int[][] graph, boolean[][] visited, int i, int j) {
-        Queue<CustomPair> queue = new LinkedList<>();
+        Queue<custompair> queue = new LinkedList<>();
 
         //큐에 정점 정보 추가
-        queue.add(new CustomPair(i,j));
+        queue.add(new custompair(i,j));
         //방문 체킹
         visited[i][j] = true;
 
@@ -78,7 +78,7 @@ public class boj_1012 {
 
         while(!queue.isEmpty())
         {
-            CustomPair v = queue.poll();
+            custompair v = queue.poll();
             j = v.getN();
             i = v.getM();
             //사방 탐색
@@ -91,7 +91,7 @@ public class boj_1012 {
                 {
                     if(!visited[dx][dy] && graph[dx][dy] == 1)
                     {
-                        queue.add(new CustomPair(dx,dy));
+                        queue.add(new custompair(dx,dy));
                         visited[dx][dy] = true;
                     }
                 }
