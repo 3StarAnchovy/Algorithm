@@ -4,24 +4,6 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
 
-class CustomPair {
-   private int n;
-   private int m;
-
-    public CustomPair(int m, int n) {
-        this.n = n;
-        this.m = m;
-    }
-
-    public int getN() {
-        return n;
-    }
-
-    public int getM() {
-        return m;
-    }
-}
-
 
 public class boj_1012 {
      //상하좌우
@@ -79,8 +61,8 @@ public class boj_1012 {
         while(!queue.isEmpty())
         {
             custompair v = queue.poll();
-            j = v.getN();
-            i = v.getM();
+            j = v.getJ();
+            i = v.getI();
             //사방 탐색
             for(int r = 0; r < 4; r ++)
             {
