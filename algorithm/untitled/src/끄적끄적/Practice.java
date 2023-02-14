@@ -1,10 +1,11 @@
-package brute_force;
+package 끄적끄적;
 
-import java.util.Scanner;
+import java.util.*;
 
-public class boj_2023 {
+public class Practice {
     static int N;
     static int[] first_prime = {2,3,5,7};
+
     public static void main(String[] args)
     {
         Scanner scanner = new Scanner(System.in);
@@ -12,35 +13,32 @@ public class boj_2023 {
         N = scanner.nextInt();
 
         for(int i = 0; i < 4; i ++)
-        {
             getPrime(2,first_prime[i]);
-        }
     }
 
-    private static void getPrime(int cnt, int num) {
-
-        //자릿수 올리고, 값 더함 (홀수만)
+    //함수가 해야할것을 명확하게 해야할 필요가 있어보임
+    //기제조건, 유도파트 명확하게 해보자
+    private static void getPrime(int cnt, int num)
+    {
         for(int i = 1; i <= 9; i += 2)
         {
             int temp = num * 10 + i;
-            //소수 체킹하고
             if(isPrime(temp))
             {
-                //N이면 출력
-                if(cnt == N)
+                if(N == cnt) {
                     System.out.println(temp);
-                //아니면 재귀 ㄱㄱ
+                    return ;
+                }
                 else
                     getPrime(cnt + 1, temp);
             }
-            //소수가 아니면? "num에 변화 없이" 다음 for문
         }
     }
 
-    private static boolean isPrime(int num) {
-        for(int i = 2; i < num ; i ++)
+    private static boolean isPrime(int temp) {
+        for(int i = 2; i < temp; i ++)
         {
-            if (num % i == 0)
+            if(temp % i == 0)
                 return false;
         }
         return true;
