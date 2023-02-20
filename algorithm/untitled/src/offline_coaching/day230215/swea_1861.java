@@ -51,7 +51,6 @@ public class swea_1861 {
 
             map = new int[N][N];
 
-
             for(int i = 0; i < N; i ++)
             {
                 for(int j = 0; j < N; j ++) {
@@ -96,6 +95,7 @@ public class swea_1861 {
                 int nj = __j + delta_j[i];
                 if(0 <= ni && ni < N && 0 <= nj && nj < N)
                 {
+                    //생각해보니까 visited 필요 없는듯
                     if(!visited[ni][nj] && map[ni][nj] == map[__i][__j] + 1)
                     {
                         visited[ni][nj] = true;
