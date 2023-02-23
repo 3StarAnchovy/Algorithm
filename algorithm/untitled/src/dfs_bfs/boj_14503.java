@@ -49,24 +49,26 @@ public class boj_14503 {
     private static void DFS(Position start, int head) {
         if (map[start.i][start.j] == 1) {
             return;
-        } else if (map[start.i][start.j] == 0) {
-            cnt++;
-            map[start.i][start.j] = -1;
-            System.out.println(start.i + " " + start.j);
         }
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 1; i < 5; i++) {
             int ni = start.i + dir_i[(head + i) % 4];
             int nj = start.j + dir_j[(head + i) % 4];
             if (0 <= ni && ni < N && 0 <= nj && nj < M) {
-//                if(map[ni][nj] == 0) {
-//                    map[ni][nj] = -1;
-//                    cnt ++;
-//                    DFS(new Position(ni, nj), (head + i) % 4);
-//                }
-                DFS(new Position(ni, nj), (head + i) % 4);
+                if(map[ni][nj] == 0) {
+                    map[ni][nj] = -1;
+                    cnt ++;
+                    DFS(new Position(ni, nj), (head + i) % 4);
+                }
+
+                else if(map[ni][nj] == 1)
+                {
+                    return;
+                }
             }
         }
+
+
 
     }
 }
