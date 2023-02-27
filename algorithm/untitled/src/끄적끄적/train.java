@@ -15,18 +15,51 @@ public class train {
         N = scanner.nextInt();
         R = scanner.nextInt();
 
-        arr = new int[N];
-        isSelected = new boolean[N];
-        picked = new int[R];
-        for(int i = 0; i < N; i ++)
-            arr[i] = scanner.nextInt();
+        arr = new int [N];
 
-        //getPerm(0);
-        //getCombi(0,0);
-        getPowerSet(0);
+        for(int i = 0; i < N; i ++)
+            arr[i] = i + 1;
+
+        picked = new int[R];
+        isSelected = new boolean[N];
+
+        perm(0); // cnt
+        System.out.println("---");
+        combi(0,0); // cnt, start
+        powerset(0);
     }
 
-    private static void getPerm(int cnt) {
+    private static void powerset(int cnt) {
+        if(cnt == N)
+        {
+            for(int i = 0; i < N; i ++)
+                System.out.print(isSelected[i] ? arr[i] + " " : "");
+            System.out.println();
+            return;
+        }
+
+        isSelected[cnt] = true;
+        powerset(cnt + 1);
+        isSelected[cnt] = false;
+        powerset(cnt + 1);
+    }
+
+    private static void combi(int cnt, int start) {
+        if(cnt == R)
+        {
+            System.out.println(Arrays.toString(picked));
+            return;
+        }
+
+        for(int i = start; i < N; i ++)
+        {
+            picked[cnt] = arr[i];
+            combi(cnt + 1, i + 1);
+        }
+
+    }
+
+    private static void perm(int cnt) {
         if(cnt == R)
         {
             System.out.println(Arrays.toString(picked));
@@ -37,43 +70,11 @@ public class train {
         {
             if(!isSelected[i])
             {
-                picked[cnt] = arr[i];
                 isSelected[i] = true;
-                getPerm(cnt + 1);
+                picked[cnt] = arr[i];
+                perm(cnt + 1);
                 isSelected[i] = false;
             }
         }
-    }
-
-    private static void getCombi(int cnt, int start)
-    {
-        if(cnt == R)
-        {
-            System.out.println(Arrays.toString(picked));
-            return;
-        }
-
-        for(int i = start; i < N; i ++) {
-            picked[cnt] = arr[i];
-            getCombi(cnt + 1, i + 1);
-        }
-    }
-
-    private static void getPowerSet(int cnt)
-    {
-        if(cnt == N)
-        {
-            for(int i = 0; i < N; i ++)
-            {
-                System.out.print(isSelected[i] ? arr[i] + " " : "");
-            }
-            System.out.println();
-            return;
-        }
-
-        isSelected[cnt] = true;
-        getPowerSet(cnt + 1);
-        isSelected[cnt] = false;
-        getPowerSet(cnt + 1);
     }
 }

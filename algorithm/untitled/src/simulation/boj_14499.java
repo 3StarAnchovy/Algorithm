@@ -41,15 +41,13 @@ public class boj_14499 {
         // 동쪽 1, 서쪽 2
         if(command == 1 || command == 2)
         {
-            
-            ew_cnt ++;
-            dice_for_EW[(ew_cnt - 1) % 4]
+            ;
         }
 
         //남쪽, 북쪽
         else
         {
-
+            ;
         }
     }
 }
