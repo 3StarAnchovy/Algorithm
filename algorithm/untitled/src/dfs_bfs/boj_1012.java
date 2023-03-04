@@ -39,7 +39,7 @@ public class boj_1012 {
                     //방문하지 않았고 현재 위치가 1일때 bfs 시작
                     if(!visited[i][j] && graph[i][j] == 1)
                     {
-                        dfs(graph,visited,i,j);
+                        bfs(graph,visited,i,j);
                         cnt ++;
                     }
                 }
@@ -48,7 +48,7 @@ public class boj_1012 {
         }
     }
 
-    private static void dfs(int[][] graph, boolean[][] visited, int i, int j) {
+    private static void bfs(int[][] graph, boolean[][] visited, int i, int j) {
         Queue<custompair> queue = new LinkedList<>();
 
         //큐에 정점 정보 추가
