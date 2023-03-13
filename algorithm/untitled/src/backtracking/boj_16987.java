@@ -12,8 +12,8 @@ import java.util.*;
  */
 public class boj_16987 {
     static int N;
-    static class Egg
-    {
+
+    static class Egg {
         int hp;
         int weight;
 
@@ -23,12 +23,13 @@ public class boj_16987 {
         }
 
     }
+
     static Egg[] eggs;
     static int[] picked;
     static boolean[] visited;
+    static int max = 0;
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
         N = scanner.nextInt();
@@ -36,52 +37,54 @@ public class boj_16987 {
         eggs = new Egg[N];
         picked = new int[N];
 
-        for(int i = 0; i < N; i ++)
-        {
+        for (int i = 0; i < N; i++) {
             int hp = scanner.nextInt();
             int weight = scanner.nextInt();
-            eggs[i] = new Egg(hp,weight);
+            eggs[i] = new Egg(hp, weight);
         }
 
-        perm(0); //cnt
+        dfs(0); // cnt;
+        System.out.println(max);
     }
 
-    private static void perm(int cnt) {
-        if(cnt == N)
+    private static void dfs(int cnt) {
+        int break_cnt = 0;
+        for(int i = 0; i < N; i ++)
         {
-            eggAction();
+            if(eggs[i].hp <= 0)
+                break_cnt ++;
+        }
+        max = Math.max(max,break_cnt);
+
+        if (cnt == N) {
+            //여기까지 못오는 가지가 있음 여기서 계산하면 안돼 시발
             return;
         }
 
-        for(int i = 0; i < N; i ++)
-        {
-            if(!visited[i])
+        if (eggs[cnt].hp > 0) {
+            for(int i = 0; i < N; i ++)
             {
-                visited[i] = true;
-                picked[cnt] = i;
-                perm(cnt + 1);
-                visited[i] = false;
+                if(eggs[i].hp > 0 && i != cnt)
+                {
+                    eggs[cnt].hp -= eggs[i].weight;
+                    eggs[i].hp -= eggs[cnt].weight;
+                    dfs(cnt + 1);
+                    eggs[cnt].hp += eggs[i].weight;
+                    eggs[i].hp += eggs[cnt].weight;
+                }
             }
         }
+
+        else
+            dfs(cnt + 1);
     }
 
-    /*
-
-     */
-    private static void eggAction() {
-        ArrayList<Egg> egg_order = new ArrayList<>();
-
-        for(int i = 0; i < 3; i ++)
-        {
-            egg_order.add(eggs[picked[i]]);
-        }
-        //게란이 다 깨질 때까지 ㅇㅇ
-        for(int i = 0; i < N -1; i ++)
-        {
-            for(int j = 1; j < N; j ++)
-            {
-
-            }
-        }
+    //깨졌을 때 false
+    //안깨졌을 때 true
+    private static boolean isBroken(Egg egg) {
+        if (egg.hp <= 0)
+            return false;
+        return true;
     }
+
 }
