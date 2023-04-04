@@ -69,7 +69,7 @@ public class swea_4193 {
 
         int time = 0;
         while (!queue.isEmpty()) {
-            int qSize = queue.size();
+            int qSize = queue.size(); // 1 4 12
             while (qSize-- > 0) {
                 start = queue.poll();
                 for (int d = 0; d < 4; d++) {
