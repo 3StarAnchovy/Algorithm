@@ -115,7 +115,7 @@ public class boj_16234_인구이동 {
         //bfs 탐색이 다 끝났다면, 국경 열려있는 얘들 인구 옮겨주기
 
         for(Pos e : union_list)
-            map[e.i][e.j] = sum/cnt;
+            map[e.i][e.j] = pop;
 
         /*
         시간초과 ;;
