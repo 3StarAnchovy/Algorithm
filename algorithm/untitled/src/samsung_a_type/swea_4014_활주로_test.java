@@ -22,7 +22,7 @@ import java.util.Scanner;
     위로 올라가는 경사로인 경우
     아래로 내려가는 경사로인 경우
  */
-public class swea_4014_활주로 {
+public class swea_4014_활주로_test {
     static int N;
     static int X;
     static int[][] map;
@@ -65,16 +65,14 @@ public class swea_4014_활주로 {
 
             if (diff == 1) {
                 for (int j = i + 1; j <= i + X; j++) {
-                    if (N <= j || right != map[j][c] || check[j]) return false;
+                    if (N <= j || right != map[j][c]) return false;
                     check[j] = true;
                 }
-
-
             }
 
             if (diff == -1) {
                 for (int j = i; j >= i - X + 1; j--) {
-                    if (j < 0 || left != map[j][c] || check[j]) return false;
+                    if (j < 0 || left != map[j][c]) return false;
                     check[j] = true;
                 }
             }
@@ -98,7 +96,7 @@ public class swea_4014_활주로 {
             //오르막길 경사로 생성해야될 떄
             if (diff == 1) {
                 for (int j = i + 1; j <= i + X; j++) {
-                    if (N <= j || map[r][j] != right || check[j]) return false;
+                    if (N <= j || map[r][j] != right) return false;
                     check[j] = true;
                 }
             }
@@ -106,15 +104,13 @@ public class swea_4014_활주로 {
             //내리막길 경사로 생성해야될 떄
             if (diff == -1) {
                 for (int j = i; j >= i - X + 1; j--) {
-                    if (j < 0 || map[r][j] != left || check[j]) return false;
+                    if (j < 0 || map[r][j] != left) return false;
                     check[j] = true;
                 }
             }
-
             //check 해야함? 이따 뺴고 보자
         }
-
-
         return true;
     }
 }
+
