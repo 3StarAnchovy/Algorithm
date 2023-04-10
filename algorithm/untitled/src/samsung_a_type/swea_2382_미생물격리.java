@@ -86,7 +86,6 @@ public class swea_2382_미생물격리 {
         for (Micro micro : microList) {
             sum += micro.cnt;
         }
-
         return sum;
     }
 
