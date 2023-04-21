@@ -1,110 +1,95 @@
 package 끄적끄적;
 
-/*
-dfs
-search()
-    네번 꺾으면 return
-모든 디저트카페에 대해서 serach() 수행
 
-방향 고정
- */
-
+import java.util.ArrayDeque;
+import java.util.Queue;
 import java.util.Scanner;
 
 public class Test2 {
-    static int D; // 두께
-    static int W; // 보호필름 가로크기
-    static int K; // 합격기준
+    static int N;
     static int[][] map;
-    static int min = 0;
+    static boolean[][] visited;
+    static int[] delta_i = {-1, 1, 0, 0};
+    static int[] delta_j = {0, 0, -1, 1};
+
+    static class Pos {
+        int i;
+        int j;
+
+        public Pos(int i, int j) {
+            this.i = i;
+            this.j = j;
+        }
+    }
+
+    static Pos start;
+    static Pos end;
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+
         int TC = scanner.nextInt();
-
         for (int tc = 1; tc <= TC; tc++) {
-            D = scanner.nextInt();
-            W = scanner.nextInt();
-            K = scanner.nextInt();
+            N = scanner.nextInt();
+            map = new int[N][N];
+            visited = new boolean[N][N];
 
-            map = new int[D][W];
-            for (int i = 0; i < D; i++) {
-                for (int j = 0; j < W; j++) {
+            for (int i = 0; i < N; i++) {
+                for (int j = 0; j < N; j++) {
                     map[i][j] = scanner.nextInt();
                 }
             }
-            min = Integer.MAX_VALUE;
-            if (check()) {
-                min = 0;
-            } else {
-                injection(0, 0); //약품주입횟수 Cnt, layer;
-            }
 
-            System.out.println("#" + tc + " " + min);
+            start = new Pos(scanner.nextInt(), scanner.nextInt());
+            end = new Pos(scanner.nextInt(), scanner.nextInt());
 
+            int time = bfs(start) + 1;
+            System.out.println("#" + tc + " " + time);
         }
     }
 
-    private static void injection(int cnt, int layer) {
-        if (cnt >= min) {
-            return;
-        }
+    private static int bfs(Pos start) {
+        Queue<Pos> queue = new ArrayDeque<>();
 
-        if (layer == D) {
-            if (check())
-                min = Math.min(cnt, layer);
-            return;
-        }
+        queue.add(start);
+        visited[start.i][start.j] = true;
+        int time = 0;
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            while (size-- > 0) {
+                Pos cur = queue.poll();
 
-        //약품 주입 안함
-        injection(cnt, layer + 1);
+                for (int d = 0; d < 4; d++) {
+                    int ni = cur.i + delta_i[d];
+                    int nj = cur.j + delta_j[d];
 
-        int[] copy = copyArray(map[layer]);
-        //a 약품 주입함
-        for (int i = 0; i < W; i++)
-            map[layer][i] = 0;
-        injection(cnt + 1, layer + 1);
+                    if (0 <= ni && ni < N && 0 <= nj && nj < N && !visited[ni][nj]) {
+                        //다음 행선지가 도착지인 경우
+                        if (ni == end.i && nj == end.j)
+                            return time;
 
-        //b 약품 주입함
-        for (int i = 0; i < W; i++)
-            map[layer][i] = 1;
-        injection(cnt + 1, layer + 1);
+                        //다음 행선지가 물인 경우
+                        else if (map[ni][nj] == 0) {
+                            queue.add(new Pos(ni, nj));
+                            visited[ni][nj] = true;
+                        }
 
-        //restore
-        for (int i = 0; i < W; i++)
-            map[layer][i] = copy[i];
-    }
-
-    private static int[] copyArray(int[] map) {
-        int[] copy = new int[W];
-
-        for (int i = 0; i < W; i++) {
-            copy[i] = map[i];
-        }
-
-        return copy;
-    }
-
-    private static boolean check() {
-        for (int i = 0; i < W; i++) {
-            boolean flag = false;
-            int cnt = 1;
-            int temp = map[0][i];
-            for (int j = 1; j < D; j++) {
-                if (temp == map[j][i]) {
-                    cnt++;
-                } else {
-                    temp = map[j][i];
-                    cnt = 1;
+                        //다음 행선지가 소용돌이인 경우
+                        else if(map[ni][nj] == 2) {
+                            if (time % 3 != 2) // 소용돌이가 있어서 갈수 없는 경우
+                                queue.add(cur);
+                            else {
+                                queue.add(new Pos(ni, nj));
+                                visited[ni][nj] = true;
+                            }
+                        }
+                    }
                 }
-                if (cnt == K) {
-                    flag = true;
-                    break;
-                }
+
             }
-            if (!flag)
-                return false;
+            time++;
         }
-        return true;
+
+        return -2;
     }
 }
