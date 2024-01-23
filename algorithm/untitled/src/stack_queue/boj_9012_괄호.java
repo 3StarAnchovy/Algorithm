@@ -34,7 +34,7 @@ public class boj_9012_괄호 {
                     break A;
                 }
             }
-            
+
             if(flag || !stack.isEmpty())
                 sb.append("NO").append('\n');
             else
