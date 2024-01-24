@@ -8,19 +8,17 @@ import java.util.StringTokenizer;
 public class boj_11050_이향계수1 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine()," ");
+        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
 
         int N = Integer.parseInt(st.nextToken());
         int M = Integer.parseInt(st.nextToken());
 
         int result = 1;
-        for(int i = 0; i < M; i ++)
-        {
+        for (int i = 0; i < M; i++) {
             result *= N - i;
         }
 
-        for(int i = M; i > 1; i --)
-        {
+        for (int i = M; i > 1; i--) {
             result /= i;
         }
 
