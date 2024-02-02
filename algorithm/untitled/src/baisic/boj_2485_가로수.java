@@ -27,13 +27,13 @@ public class boj_2485_가로수 {
         Arrays.sort(diffArr);
 
         int gcd = diffArr[0];
-        for(int i = 1; i < N - 1; i ++){
+        for (int i = 1; i < N - 1; i++) {
             gcd = GCD(gcd, diffArr[i]);
         }
 
         int sum = 0;
-        for(int i = 0; i < N - 1; i ++){
-            sum +=(diffArr[i]/gcd) - 1;
+        for (int i = 0; i < N - 1; i++) {
+            sum += (diffArr[i] / gcd) - 1;
         }
         System.out.println(sum);
 
