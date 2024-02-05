@@ -38,7 +38,8 @@ public class boj_20438_출석체크 {
         for (int i = 0; i < Q; i++) {
             int input = Integer.parseInt(st.nextToken());
 
-            if(arr[input] == -1) continue;
+            if (arr[input] == -1)
+                continue;
             for (int j = input; j <= N + 2; j += input) {
                 if (arr[j] != -1)
                     arr[j] = 1;
@@ -53,7 +54,7 @@ public class boj_20438_출석체크 {
             dp[i] = dp[i - 1] + (arr[i] != 1 ? 1 : 0);
         }
 
-        for(int i = 0; i < M; i ++) {
+        for (int i = 0; i < M; i++) {
             st = new StringTokenizer(br.readLine(), " ");
             int start = Integer.parseInt(st.nextToken());
             int end = Integer.parseInt(st.nextToken());
