@@ -56,7 +56,6 @@ public class boj_1759_암호만들기 {
             }
             return;
         }
-
         for (int i = start; i < C; i++) {
             picked[cnt] = arr[i];
             getCombi(cnt + 1, i + 1, isMo(arr[i]) ? moCnt + 1 : moCnt, isMo(arr[i]) ? jaCnt : jaCnt + 1);
