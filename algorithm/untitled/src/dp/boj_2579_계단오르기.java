@@ -1,14 +1,40 @@
 package dp;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class boj_2579_계단오르기 {
     static int[] step;
-    static int[] memo;
+    static int[][] memo;
     static int N;
-    public static void main(String[] args){
+
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        N = Integer.parseInt(br.readLine());
+        step = new int[N + 1];
+        memo = new int[N + 1][3]; // j개의 계단을 연속해서 밟은 상태에서, i번째 계단까지 올랐을 때의 점수 최대값
+        for (int i = 1; i <= N; i++) {
+            step[i] = Integer.parseInt(br.readLine());
+        }
+
+        if (N == 1){
+            System.out.println(step[1]);
+            return;
+        }
+
+        memo[1][1] = step[1];
+        memo[2][1] = step[2];
+        memo[1][2] = 0;
+        memo[2][2] = step[1] + step[2];
+
+        for (int i = 2; i <= N; i++) {
+            memo[i][1] = Math.max(memo[i - 2][2], memo[i - 2][1]) + step[i];
+            memo[i][2] = memo[i - 1][1] + step[i];
+        }
+
+        System.out.println(Math.max(memo[N][1], memo[N][2]));
     }
 }
 
