@@ -16,7 +16,7 @@ public class basic_BFS {
         visited[v] = true;
         queue.add(v);
 
-        while(queue.size() != 0)
+        while(!queue.isEmpty())
         {
             v = queue.poll();
             System.out.print(v + " ");

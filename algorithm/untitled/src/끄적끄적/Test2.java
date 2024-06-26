@@ -5,91 +5,44 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 import java.util.Scanner;
 
-public class Test2 {
-    static int N;
-    static int[][] map;
-    static boolean[][] visited;
-    static int[] delta_i = {-1, 1, 0, 0};
-    static int[] delta_j = {0, 0, -1, 1};
+import java.util.*;
 
-    static class Pos {
-        int i;
-        int j;
+class Test2 {
+    static int sN;
 
-        public Pos(int i, int j) {
-            this.i = i;
-            this.j = j;
+    public int solution(int n, int[][] wires) {
+        sN = n;
+        for (int i = 0; i < wires.length; i++) {
+            int cnt = bfs(i, wires);
         }
+
+        return 0;
     }
 
-    static Pos start;
-    static Pos end;
+    private static int bfs(int cutIdx, int[][] wires) {
+        Queue<Integer> que = new ArrayDeque<>();
+        ArrayList<ArrayList<Integer>> list = new ArrayList<>();
+        boolean[] visited;
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        visited = new boolean[sN + 1];
 
-        int TC = scanner.nextInt();
-        for (int tc = 1; tc <= TC; tc++) {
-            N = scanner.nextInt();
-            map = new int[N][N];
-            visited = new boolean[N][N];
-
-            for (int i = 0; i < N; i++) {
-                for (int j = 0; j < N; j++) {
-                    map[i][j] = scanner.nextInt();
-                }
-            }
-
-            start = new Pos(scanner.nextInt(), scanner.nextInt());
-            end = new Pos(scanner.nextInt(), scanner.nextInt());
-
-            int time = bfs(start) + 1;
-            System.out.println("#" + tc + " " + time);
-        }
-    }
-
-    private static int bfs(Pos start) {
-        Queue<Pos> queue = new ArrayDeque<>();
-
-        queue.add(start);
-        visited[start.i][start.j] = true;
-        int time = 0;
-        while (!queue.isEmpty()) {
-            int size = queue.size();
-            while (size-- > 0) {
-                Pos cur = queue.poll();
-
-                for (int d = 0; d < 4; d++) {
-                    int ni = cur.i + delta_i[d];
-                    int nj = cur.j + delta_j[d];
-
-                    if (0 <= ni && ni < N && 0 <= nj && nj < N && !visited[ni][nj]) {
-                        //다음 행선지가 도착지인 경우
-                        if (ni == end.i && nj == end.j)
-                            return time;
-
-                        //다음 행선지가 물인 경우
-                        else if (map[ni][nj] == 0) {
-                            queue.add(new Pos(ni, nj));
-                            visited[ni][nj] = true;
-                        }
-
-                        //다음 행선지가 소용돌이인 경우
-                        else if(map[ni][nj] == 2) {
-                            if (time % 3 != 2) // 소용돌이가 있어서 갈수 없는 경우
-                                queue.add(cur);
-                            else {
-                                queue.add(new Pos(ni, nj));
-                                visited[ni][nj] = true;
-                            }
-                        }
-                    }
-                }
-
-            }
-            time++;
+        for (int i = 0; i <= wires.length; i++) {
+            list.add(new ArrayList<>());
         }
 
-        return -2;
+        for (int i = 0; i < wires.length; i++) {
+            if (i != cutIdx) {
+                list.get(wires[i][0]).add(wires[i][1]);
+                list.get(wires[i][1]).add(wires[i][0]);
+            }
+        }
+        return -1;
     }
 }
+
+/*
+0418
+n개의 송전탑이 전선을 통해 하나의 트리로 있음
+하나 끊어서, 전력망 네트워크를 2개로 분할하려고함
+두 전력망이 갖게되는 송전탑 개수를 최대한 비슷하게 맞추려함
+*/

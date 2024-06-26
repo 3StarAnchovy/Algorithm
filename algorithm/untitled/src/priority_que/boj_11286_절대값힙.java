@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Comparator;
 import java.util.PriorityQueue;
+import java.util.Stack;
 
 public class boj_11286_절대값힙 {
     public static void main(String[] args) throws IOException {
@@ -29,6 +30,8 @@ public class boj_11286_절대값힙 {
                     return a - b;
             }
         });
+        Stack<Character> stack = new Stack<>();
+
         for (int i = 0; i < N; i++) {
             int num = Integer.parseInt(br.readLine());
 
