@@ -34,12 +34,12 @@ public class boj_15651_nm3 {
         }
 
         for(int i = 0; i < N; i ++) {
-            if(!visited[i]) {
-                visited[i] = true;
+
+
                 picked[cnt] = i + 1;
                 dfs(cnt + 1);
-                visited[i] = false;
-            }
+
+
         }
     }
 }
