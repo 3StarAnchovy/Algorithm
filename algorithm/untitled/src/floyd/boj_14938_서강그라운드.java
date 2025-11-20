@@ -68,7 +68,7 @@ public class boj_14938_서강그라운드 {
             }
             max = Math.max(temp, max);
         }
-        
+
         System.out.println(max);
 
     }
